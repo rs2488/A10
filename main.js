@@ -1,10 +1,9 @@
-
 const setCookieButton = document.getElementById('set-cookie-btn');
 const cookieDisplay = document.getElementById('cookie-display');
 
 function setCookie(name, value, days) {
     const date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // Set expiration in days
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); 
     const expires = "expires=" + date.toUTCString();
     document.cookie = `${name}=${value}; ${expires}; path=/`;
 }
@@ -20,9 +19,15 @@ function getCookie(name) {
     }
     return null;
 }
-
-setCookieButton.addEventListener('click', () => {
-    setCookie('exampleCookie', 'Hello, Cookie!', 7); 
+document.addEventListener('DOMContentLoaded', () => {
     const cookieValue = getCookie('exampleCookie');
     cookieDisplay.textContent = cookieValue ? `Cookie set: ${cookieValue}` : 'No cookie set yet.';
+});
+setCookieButton.addEventListener('click', () => {
+    const userInput = prompt('Enter a value for the cookie:'); 
+    if (userInput) {
+        setCookie('exampleCookie', userInput, 7); 
+        const cookieValue = getCookie('exampleCookie');
+        cookieDisplay.textContent = cookieValue ? `Cookie set: ${cookieValue}` : 'No cookie set yet.';
+    }
 });
